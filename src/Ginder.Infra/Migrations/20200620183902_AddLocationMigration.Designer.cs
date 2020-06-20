@@ -4,14 +4,16 @@ using Ginder.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ginder.Infra.Migrations
 {
     [DbContext(typeof(GinderDbContext))]
-    partial class GinderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200620183902_AddLocationMigration")]
+    partial class AddLocationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

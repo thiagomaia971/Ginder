@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ginder.Domain.Entities;
+using Ginder.Infra.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -27,44 +28,14 @@ namespace Ginder.Infra
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(BaseEntityTypeConfiguration<>)));
-            //
-            // foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(e => (bool)e.ClrType?.IsAssignableFrom(typeof(BaseOwnerEntity))))
-            // {
-            //     Expression<Func<BaseOwnerEntity, bool>> filter = e => e.OwnerId == _ownerId;
-            //     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
-            // }
-            //
-            
-            modelBuilder.Entity<Player>().HasData(
-                new Player
-                {
-                    Id = Guid.Parse("c8413c17-63e7-491a-9eae-0489737e19ff"), Name = "Admin Teste Player", Idade = 20,
-                    CreatedAt = DateTimeOffset.Now
-                }
-            );
-            
-            modelBuilder.Entity<User>().HasData(
-                new User { Id = Guid.Parse("C6699C75-5F44-4029-A404-84CE8A3951C8"), PlayerId = Guid.Parse("c8413c17-63e7-491a-9eae-0489737e19ff"), Login = "admin", Password = "123", CreatedAt = DateTimeOffset.Now }
-            );
-            
-            modelBuilder.Entity<Game>().HasData(
-                new Game { Id = Guid.Parse("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"), Name = "League of Legends", ImagePath = "/Games/LeagueOfLegends.png", CreatedAt = DateTimeOffset.Now },
-                new Game { Id = Guid.Parse("885c76df-b632-496e-a87f-98a5a362bd94"), Name = "World of Warcraft", ImagePath = "/Games/WorldOfWarcraft.png", CreatedAt = DateTimeOffset.Now },
-                new Game { Id = Guid.Parse("71833138-ba80-4851-bf9d-ff01ea572d88"), Name = "Shadow Arena", ImagePath = "/Games/ShadowArena.png", CreatedAt = DateTimeOffset.Now }
-            );
-
-            modelBuilder.Entity<PlayerGame>().HasData(
-                new PlayerGame
-                {
-                    Id = Guid.Parse("fee6b24d-a74d-4391-ab0e-091d48762b6f"),
-                    PlayerId = Guid.Parse("c8413c17-63e7-491a-9eae-0489737e19ff"),
-                    GameId = Guid.Parse("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"), Description = "Jogo pra me divertir",
-                    PeriodTime = "Jogo aos finais de semanas", Role = "Jogo na posição de ADC",
-                    CreatedAt = DateTimeOffset.Now
-                }
-            );
+            SetupEntitiesConfigurations(modelBuilder);
             base.OnModelCreating(modelBuilder);
+        }
+        
+        private static void SetupEntitiesConfigurations(ModelBuilder modelBuilder)
+        {
+            var assembly = AppDomain.CurrentDomain.Load(typeof(EntityTypeConfigurationBase<>).Module.Name.Replace(".dll", string.Empty));
+            modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
