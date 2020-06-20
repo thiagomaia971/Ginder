@@ -1,0 +1,67 @@
+﻿@page "/"
+
+@using Ginder.Common.Helpers
+@using Ginder.Common.Interfaces
+@using BlazorMobile.Common
+@using Newtonsoft.Json
+
+@inject ILoginRepository LoginRepository
+@inject IXamarinBridge XamarinBridge
+@inject NavigationManager NavigationManager
+
+
+<style>
+    .login-page {
+        margin: auto;
+        width: 80%;
+        padding: 15px;
+    }
+
+    .login-page .mdc-text-field {
+        width: 100%;
+    }
+
+    .login-page__login-btn {
+        margin: auto;
+        width: 110px;
+    }
+</style>
+
+<div class="login-page">
+    <MatTextField Label="Login" @bind-Value="userModel.Login" Width="" />
+    <MatTextField Label="Senha" @bind-Value="userModel.Password" Type="password" />
+    <div class="login-page__login-btn">
+        <MatButton Unelevated="true" OnClick="@Login">Entrar</MatButton>
+    </div>
+</div>
+
+@code
+{
+    UserModel userModel = new UserModel();
+
+    private async Task Login()
+    {
+        try
+        {
+            var result = await LoginRepository.Get<CommandResult<User>>(userModel);
+            if (result.IsSuccess)
+                ChangePage();
+            else
+                await XamarinBridge.DisplayAlert($"Login", $"Erro ao logar: {result.Exception?.Message}", "Ok");
+        }
+        catch (Exception e)
+        {
+            await XamarinBridge.DisplayAlert($"Error - {LoginRepository.BaseApi}/{LoginRepository.BuildAction(userModel, null)}", $"{JsonConvert.SerializeObject(e)}", "Ok");
+            throw;
+        }
+    }
+
+    private void ChangePage() 
+        => NavigationManager.NavigateTo("counter");
+
+    class UserModel
+    {
+        public string Login { get; set; }
+        public string Password { get; set; }
+    }
+}

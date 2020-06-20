@@ -1,0 +1,24 @@
+﻿@page "/counter"
+@using Xamarin.Essentials;
+@using BlazorMobile.Common
+@using Ginder.Common.Interfaces
+@inject IXamarinBridge XamarinBridge
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="@IncrementCount">Click me</button>
+
+@code {
+    int currentCount = 0;
+
+    async Task IncrementCount()
+    {
+        Console.WriteLine("IncrementCount !");
+        currentCount++;
+
+        var location = await XamarinBridge.GetLocation();
+        await XamarinBridge.DisplayAlert("Geolocalização", $"Latitude: {location?.Latitude}, Longitude: {location?.Longitude}, Altitude: {location?.Altitude}", "Great!");
+    }
+}
