@@ -1,4 +1,4 @@
-package com.example.myapplication
+package br.unifor.dispositivos.ginder
 
 import org.junit.Test
 
