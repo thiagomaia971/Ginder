@@ -11,10 +11,24 @@
     }
     
     .mdc-drawer-app-content {
-        position: fixed;
+        height: initial !important;
     }
     .mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing)+.mdc-drawer-app-content {
         margin-left: 0px;
+    }
+    
+    .mdc-drawer{
+        height: 100%;
+        position: fixed;
+    }
+    
+    .mdc-drawer .mat-drawer .mdc-drawer--dismissible .mdc-drawer--open{
+        height: 100%;
+        position: fixed;
+    }
+    
+    .mdc-drawer__content {
+        border-right: 2px solid rgba(0,0,0,.12);
     }
     
 </style>
@@ -23,7 +37,7 @@
     <MatAppBar Fixed="true">
         <MatAppBarRow>
             <MatAppBarSection>
-                @if (relativePath == "counter")
+                @if (relativePath.Any())
                 {
                     <MatIconButton Icon="menu" @onclick="@ToggleNavMenu"></MatIconButton>
                 }
@@ -38,23 +52,37 @@
     <MatAppBarContent>
         <MatDrawerContainer Style="width: 100vw; height: 100vh;">
             <MatDrawer @bind-Opened="@toggleNavMenu">
-                <ul class="nav flex-column">
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="blazormobile">
-                            <span class="oi oi-plus" aria-hidden="true"></span> BlazorMobile
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="counter">
-                            <span class="oi oi-plus" aria-hidden="true"></span> Counter
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="fetchdata">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-                        </NavLink>
-                    </li>
-                </ul>
+            
+                <MatList>
+                    <MatListItem href="blazormobile">
+                        BlazorMobile
+                    </MatListItem>
+                    <MatListDivider></MatListDivider>
+                    <MatListItem href="counter">
+                        Counter
+                    </MatListItem>
+                    <MatListDivider></MatListDivider>
+                    <MatListItem href="fetchdata">
+                        Fetch data
+                    </MatListItem>
+                </MatList>
+                @* <ul class="nav flex-column"> *@
+                @*     <li class="nav-item px-3"> *@
+                @*         <NavLink class="nav-link" href="blazormobile"> *@
+                @*             <span class="oi oi-plus" aria-hidden="true"></span> BlazorMobile *@
+                @*         </NavLink> *@
+                @*     </li> *@
+                @*     <li class="nav-item px-3"> *@
+                @*         <NavLink class="nav-link" href="counter"> *@
+                @*             <span class="oi oi-plus" aria-hidden="true"></span> Counter *@
+                @*         </NavLink> *@
+                @*     </li> *@
+                @*     <li class="nav-item px-3"> *@
+                @*         <NavLink class="nav-link" href="fetchdata"> *@
+                @*             <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data *@
+                @*         </NavLink> *@
+                @*     </li> *@
+                @* </ul> *@
             </MatDrawer>
             <MatDrawerContent>
                 <div class="body-content">
