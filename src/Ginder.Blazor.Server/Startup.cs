@@ -51,7 +51,7 @@ namespace Ginder.Blazor.Server
                 });
             }
 
-            //services.AddTransient<IXamarinBridge, XamarinBridge>();
+            services.AddSingleton<ApplicationState>();
             ServicesHelper.ConfigureCommonServices(services);
         }
 

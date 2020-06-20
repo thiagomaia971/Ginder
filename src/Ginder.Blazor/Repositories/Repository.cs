@@ -9,7 +9,7 @@ namespace Ginder.Blazor.Repositories
 {
     public abstract class Repository : IRepository
     {
-        public string BaseApi => "http://619f7c331ad0.ngrok.io";
+        public string BaseApi => "http://2e8bdf6b52c2.ngrok.io/";
         public abstract string Action { get; }
 
         public async Task<T> Get<T>(object parameters = null, object queryString = null)

@@ -1,25 +1,96 @@
 @using Ginder.Common.Interfaces
+@using Newtonsoft.Json
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 @inject IXamarinBridge XamarinBridge
+@inject ApplicationState ApplicationState
 
-<div class="sidebar">
-    <NavMenu RelativePath="@relativePath"/>
-</div>
+<style>
+    .body-content {
+        padding: 15px;
+    }
+    
+    .mdc-drawer-app-content {
+        position: fixed;
+    }
+    .mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing)+.mdc-drawer-app-content {
+        margin-left: 0px;
+    }
+    
+</style>
 
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
+<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                @if (relativePath == "counter")
+                {
+                    <MatIconButton Icon="menu" @onclick="@ToggleNavMenu"></MatIconButton>
+                }
+                <MatAppBarTitle>Ginder</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                @* <MatIconButton Icon="favorite"></MatIconButton> *@
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+ 
+    <MatAppBarContent>
+        <MatDrawerContainer Style="width: 100vw; height: 100vh;">
+            <MatDrawer @bind-Opened="@toggleNavMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="blazormobile">
+                            <span class="oi oi-plus" aria-hidden="true"></span> BlazorMobile
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="counter">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="fetchdata">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                        </NavLink>
+                    </li>
+                </ul>
+            </MatDrawer>
+            <MatDrawerContent>
+                <div class="body-content">
+                    @Body
+                </div>
+            </MatDrawerContent>
+        </MatDrawerContainer>
+    </MatAppBarContent>
+</MatAppBarContainer>
 
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
 @code 
 {
     string relativePath;
-    
+    bool toggleNavMenu;
+    private bool IsHomePage;
+
+    protected override void OnInitialized()
+    {
+        relativePath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
     protected override void OnAfterRender(bool firstRender)
+        => RefreshRelativePath();
+
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        RefreshRelativePath();
+        IsHomePage = relativePath == string.Empty;
+        StateHasChanged();
+        XamarinBridge.DisplayAlert("Ok", JsonConvert.SerializeObject(new {relativePath}), "Ok");
+    } 
+
+    private void RefreshRelativePath()
         => relativePath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+
+    void ToggleNavMenu() 
+        => toggleNavMenu = !toggleNavMenu;
 }
