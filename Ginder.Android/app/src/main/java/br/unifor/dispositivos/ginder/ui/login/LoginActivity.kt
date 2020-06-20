@@ -1,6 +1,7 @@
 package br.unifor.dispositivos.ginder.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import br.unifor.dispositivos.ginder.R
+import br.unifor.dispositivos.ginder.ui.perfil.PerfilActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -61,7 +63,10 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            val intent = Intent(this, PerfilActivity::class.java).apply {
+//                putExtra(EXTRA_MESSAGE, message)
+            }
+            startActivity(intent)
         })
 
         username.afterTextChanged {
