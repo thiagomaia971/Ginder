@@ -22,7 +22,6 @@ public class PlayerGameAdapter(context: Context, val resource: Int, val playerGa
         val titleTextView = view.findViewById<TextView>(R.id.playergame_list_title)
         val periodTextView = view.findViewById<TextView>(R.id.playergame_list_period)
         val descriptionTextView = view.findViewById<TextView>(R.id.playergame_list_role)
-        val matchButton = view.findViewById<TextView>(R.id.playergame_list_matchBtn)
 
         val playerGame = playerGames[position]
 
@@ -30,10 +29,7 @@ public class PlayerGameAdapter(context: Context, val resource: Int, val playerGa
         periodTextView.text = playerGame.PeriodTime
         descriptionTextView.text = playerGame.Role
 
-        matchButton.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                //Your code here
-            }})
+
 
         return view
     }

@@ -1,7 +1,11 @@
 package br.unifor.dispositivos.ginder.ui.perfil
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import br.unifor.dispositivos.ginder.R
 import br.unifor.dispositivos.ginder.data.PlayerRepository
@@ -41,8 +45,15 @@ class PerfilActivity : AppCompatActivity() {
                 }
             }
 
-//        playergame_list.setOnItemClickListener { parent, view, position, id ->
-//            Toast.makeText(this, meusJogos[position], Toast.LENGTH_SHORT).show()
-//        }
+        val listView = findViewById<ListView>(R.id.playergame_list);
+
+        playergame_list.setOnItemClickListener {  parent, view, position, id ->
+            Toast.makeText(this@PerfilActivity, view.findViewById<TextView>(R.id.playergame_list_title).text, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SearchActivity::class.java).apply {
+                //                putExtra(EXTRA_MESSAGE, message)
+            }
+            startActivity(intent)
+        }
+    }
     }
 }

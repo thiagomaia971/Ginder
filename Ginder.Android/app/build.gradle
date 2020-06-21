@@ -23,6 +23,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -37,6 +41,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //add these dependencies
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
+    implementation 'com.facebook.fresco:fresco:2.1.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
     implementation 'com.github.kittinunf.fuel:fuel:1.1.3'
     implementation 'com.github.kittinunf.fuel:fuel-android:1.1.3'
     implementation 'com.github.kittinunf.result:result:3.0.1'
