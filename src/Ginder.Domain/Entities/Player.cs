@@ -10,6 +10,11 @@ namespace Ginder.Domain.Entities
 
         public virtual LocationValueObject Location { get; set; }
 
-        public virtual ICollection<PlayerGame> Games { get; set; }
+        public ICollection<PlayerGame> Games { get; set; }
+
+        public Player()
+        {
+            Games = new List<PlayerGame>();            
+        }
     }
 }

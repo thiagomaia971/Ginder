@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import br.unifor.dispositivos.ginder.R
+import br.unifor.dispositivos.ginder.data.model.PlayerGame
 
 public class PlayerGameAdapter(context: Context, val resource: Int, val playerGames: List<PlayerGame>) :
     ArrayAdapter<PlayerGame>(context, resource, playerGames) {
@@ -25,8 +26,8 @@ public class PlayerGameAdapter(context: Context, val resource: Int, val playerGa
 
         val playerGame = playerGames[position]
 
-        titleTextView.text = playerGame.Title
-        periodTextView.text = playerGame.Period
+        titleTextView.text = playerGame.Game.Name
+        periodTextView.text = playerGame.PeriodTime
         descriptionTextView.text = playerGame.Role
 
         matchButton.setOnClickListener(object : View.OnClickListener{

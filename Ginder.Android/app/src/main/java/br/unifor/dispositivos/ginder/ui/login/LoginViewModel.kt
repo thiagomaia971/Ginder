@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import br.unifor.dispositivos.ginder.data.LoginRepository
-import br.unifor.dispositivos.ginder.data.Result
+import br.unifor.dispositivos.ginder.data.model.Player
 
 import br.unifor.dispositivos.ginder.R
+import br.unifor.dispositivos.ginder.data.model.RequestResult
+
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
@@ -18,14 +22,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        loginRepository.login(username, password)
+            .responseString { request, response, result ->
+                when(result){
+                    is com.github.kittinunf.result.Result.Success -> {
+                        val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                        val playerResult = mapper.readValue<RequestResult<Player>>(result.value)
 
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
+                        _loginResult.value = LoginResult(LoggedInUserView(displayName = playerResult.Result.Name), null, playerResult.Result)
+                        println("Result: ${playerResult}")
+                    }
+                    is com.github.kittinunf.result.Result.Failure -> {
+                        _loginResult.value = LoginResult(error = R.string.login_failed, player = null)
+                    }
+                }
+            }
     }
 
     fun loginDataChanged(username: String, password: String) {
@@ -49,6 +60,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+        return password.length > 0
     }
 }

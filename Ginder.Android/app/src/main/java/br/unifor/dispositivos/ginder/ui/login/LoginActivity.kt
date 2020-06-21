@@ -2,11 +2,10 @@ package br.unifor.dispositivos.ginder.ui.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.os.Build
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
+import android.os.StrictMode
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,9 +14,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import br.unifor.dispositivos.ginder.R
 import br.unifor.dispositivos.ginder.ui.perfil.PerfilActivity
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -56,17 +59,18 @@ class LoginActivity : AppCompatActivity() {
             loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
+                setResult(Activity.RESULT_CANCELED)
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
+                setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
-            val intent = Intent(this, PerfilActivity::class.java).apply {
-//                putExtra(EXTRA_MESSAGE, message)
+                //Complete and destroy login activity once successful
+                val intent = Intent(this, PerfilActivity::class.java).apply {
+                    putExtra("playerId", loginResult.player?.Id.toString())
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
         })
 
         username.afterTextChanged {
@@ -114,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, errorString, Toast.LENGTH_LONG).show()
     }
 }
 
