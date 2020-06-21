@@ -1,11 +1,10 @@
 package br.unifor.dispositivos.ginder.ui.search
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.unifor.dispositivos.ginder.R
 
@@ -13,15 +12,23 @@ import br.unifor.dispositivos.ginder.R
 class PlayerGamerAdapter : RecyclerView.Adapter<PlayerGamerAdapter.ProfileViewHolder>() {
 
     private var playergamers: List<PlayerGamer>? = null
+    private var mCtx: Context? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProfileViewHolder(
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.playergame_card_view,
-            parent,
-            false
-        )
-    )
+    fun ProductAdapter(
+        mCtx: Context,
+        playergamers: List<PlayerGamer>
+    ) {
+        this.mCtx = mCtx
+        this.playergamers = playergamers
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
+        //inflating and returning our view holder
+        val inflater = LayoutInflater.from(mCtx)
+        val view: View = inflater.inflate(R.layout.playergame_card_view, null)
+        return ProfileViewHolder(view)
+    }
 
     override fun getItemCount() = playergamers?.size ?: 0
 
