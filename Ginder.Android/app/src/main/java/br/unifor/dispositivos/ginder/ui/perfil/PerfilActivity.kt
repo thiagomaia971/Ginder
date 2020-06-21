@@ -13,16 +13,17 @@ class PerfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
-        val meusJogos = listOf("CSGO", "WOW", "LOL")
-
-        list_meusJogos.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, meusJogos)
-
-        list_meusJogos.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(this, meusJogos[position], Toast.LENGTH_SHORT).show()
-        }
+        val meusJogos = listOf(
+            PlayerGame("CSGO", "10 horas/dia", "Role..."),
+            PlayerGame("LoL", "10 horas/dia", "Role..."),
+            PlayerGame("WoW", "10 horas/dia", "Role...")
+        )
 
 
+        playergame_list.adapter = PlayerGameAdapter(this, R.layout.playergame_item, meusJogos)
+
+//        playergame_list.setOnItemClickListener { parent, view, position, id ->
+//            Toast.makeText(this, meusJogos[position], Toast.LENGTH_SHORT).show()
+//        }
     }
-
-
 }
