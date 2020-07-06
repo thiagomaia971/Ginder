@@ -6,17 +6,12 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import br.unifor.dispositivos.ginder.R
 import br.unifor.dispositivos.ginder.data.PlayerRepository
-import br.unifor.dispositivos.ginder.data.model.Game
 import br.unifor.dispositivos.ginder.data.model.Player
-import br.unifor.dispositivos.ginder.data.model.PlayerGame
 import br.unifor.dispositivos.ginder.data.model.RequestResult
-import br.unifor.dispositivos.ginder.ui.login.LoggedInUserView
-import br.unifor.dispositivos.ginder.ui.login.LoginResult
 import br.unifor.dispositivos.ginder.ui.login.LoginViewModel
-import br.unifor.dispositivos.ginder.ui.login.LoginViewModelFactory
+import br.unifor.dispositivos.ginder.ui.search.SearchActivity
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -49,11 +44,10 @@ class PerfilActivity : AppCompatActivity() {
 
         playergame_list.setOnItemClickListener {  parent, view, position, id ->
             Toast.makeText(this@PerfilActivity, view.findViewById<TextView>(R.id.playergame_list_title).text, Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SearchActivity::class.java).apply {
-                //                putExtra(EXTRA_MESSAGE, message)
-            }
-            startActivity(intent)
+//            val intent = Intent(this, SearchActivity::class.java).apply {
+//                //                putExtra(EXTRA_MESSAGE, message)
+//            }
+//            startActivity(intent)
         }
-    }
     }
 }

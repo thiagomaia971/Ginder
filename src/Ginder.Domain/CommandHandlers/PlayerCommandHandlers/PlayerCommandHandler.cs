@@ -14,6 +14,10 @@ namespace Ginder.Domain.CommandHandlers.PlayerCommandHandlers
             => _playerRepository = playerRepository;
 
         public override Player Handle(PlayerCommand command) 
-            => _playerRepository.GetAll().Include(x => x.Games).FirstOrDefault(x => x.Id == command.PlayerId);
+            => _playerRepository
+                .GetAll()
+                .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .FirstOrDefault(x => x.Id == command.PlayerId);
     }
 }
