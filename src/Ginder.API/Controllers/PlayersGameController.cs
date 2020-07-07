@@ -6,7 +6,7 @@ namespace Ginder.API.Controllers
     public class PlayersGameController : BaseController
     {
         [HttpGet]
-        [Route("{GameId}")]
+        [Route("{PlayerId}/{GameId}/{Distance}/{Latitude}/{Longitude}")]
         public IActionResult Get([FromRoute] PlayersGameCommand playersGameCommand) 
             => SendCommandRequest(playersGameCommand);
     }

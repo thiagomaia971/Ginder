@@ -32,6 +32,8 @@ class PerfilActivity : AppCompatActivity() {
                     is com.github.kittinunf.result.Result.Success -> {
                         val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                         val playerResult = mapper.readValue<RequestResult<Player>>(result.value)
+                        name.setText(playerResult.Result.Name)
+                        designation.setText(playerResult.Result.Idade.toString() + " anos")
                         playergame_list.adapter = PlayerGameAdapter(this, R.layout.playergame_item, playerResult.Result.Games)
                     }
                     is com.github.kittinunf.result.Result.Failure -> {
@@ -44,10 +46,11 @@ class PerfilActivity : AppCompatActivity() {
 
         playergame_list.setOnItemClickListener {  parent, view, position, id ->
             Toast.makeText(this@PerfilActivity, view.findViewById<TextView>(R.id.playergame_list_title).text, Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this, SearchActivity::class.java).apply {
-//                //                putExtra(EXTRA_MESSAGE, message)
-//            }
-//            startActivity(intent)
+            val intent = Intent(this, SearchActivity::class.java).apply {
+                putExtra("playerId", playerId)
+                putExtra("gameId", view.findViewById<TextView>(R.id.playergame_list_gameId).text)
+            }
+            startActivity(intent)
         }
     }
 }

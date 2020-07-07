@@ -4,14 +4,16 @@ using Ginder.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ginder.Infra.Migrations
 {
     [DbContext(typeof(GinderDbContext))]
-    partial class GinderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200707013324_AddUserMigration2")]
+    partial class AddUserMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,21 +50,21 @@ namespace Ginder.Infra.Migrations
                         new
                         {
                             Id = new Guid("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 260, DateTimeKind.Unspecified).AddTicks(5060), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 695, DateTimeKind.Unspecified).AddTicks(1350), new TimeSpan(0, -3, 0, 0, 0)),
                             ImagePath = "/Games/LeagueOfLegends.png",
                             Name = "League of Legends"
                         },
                         new
                         {
                             Id = new Guid("885c76df-b632-496e-a87f-98a5a362bd94"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 260, DateTimeKind.Unspecified).AddTicks(5282), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 695, DateTimeKind.Unspecified).AddTicks(1478), new TimeSpan(0, -3, 0, 0, 0)),
                             ImagePath = "/Games/WorldOfWarcraft.png",
                             Name = "World of Warcraft"
                         },
                         new
                         {
                             Id = new Guid("71833138-ba80-4851-bf9d-ff01ea572d88"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 260, DateTimeKind.Unspecified).AddTicks(5291), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 695, DateTimeKind.Unspecified).AddTicks(1487), new TimeSpan(0, -3, 0, 0, 0)),
                             ImagePath = "/Games/ShadowArena.png",
                             Name = "Shadow Arena"
                         });
@@ -98,30 +100,16 @@ namespace Ginder.Infra.Migrations
                         new
                         {
                             Id = new Guid("c8413c17-63e7-491a-9eae-0489737e19ff"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 330, DateTimeKind.Unspecified).AddTicks(5037), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 763, DateTimeKind.Unspecified).AddTicks(628), new TimeSpan(0, -3, 0, 0, 0)),
                             Idade = 20,
                             Name = "Admin Teste Player"
                         },
                         new
                         {
                             Id = new Guid("e19e6927-a444-489c-885c-45735f88e6ee"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 330, DateTimeKind.Unspecified).AddTicks(5159), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 763, DateTimeKind.Unspecified).AddTicks(733), new TimeSpan(0, -3, 0, 0, 0)),
                             Idade = 23,
                             Name = "Player 2"
-                        },
-                        new
-                        {
-                            Id = new Guid("b0707b09-f1bd-44e9-928b-9277e1bf8d46"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 330, DateTimeKind.Unspecified).AddTicks(5167), new TimeSpan(0, -3, 0, 0, 0)),
-                            Idade = 23,
-                            Name = "Player 3"
-                        },
-                        new
-                        {
-                            Id = new Guid("eaf6db7c-e7f3-49c8-afbe-66ed55d52af8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 330, DateTimeKind.Unspecified).AddTicks(5175), new TimeSpan(0, -3, 0, 0, 0)),
-                            Idade = 17,
-                            Name = "Player 4"
                         });
                 });
 
@@ -167,7 +155,7 @@ namespace Ginder.Infra.Migrations
                         new
                         {
                             Id = new Guid("fee6b24d-a74d-4391-ab0e-091d48762b6f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 331, DateTimeKind.Unspecified).AddTicks(7209), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 763, DateTimeKind.Unspecified).AddTicks(9856), new TimeSpan(0, -3, 0, 0, 0)),
                             Description = "Jogo pra me divertir",
                             GameId = new Guid("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"),
                             PeriodTime = "Jogo aos finais de semanas",
@@ -176,43 +164,13 @@ namespace Ginder.Infra.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b2768f45-4d9f-4dae-abec-a6c07cc35603"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 331, DateTimeKind.Unspecified).AddTicks(7389), new TimeSpan(0, -3, 0, 0, 0)),
-                            Description = "Jogo pra zuar3",
-                            GameId = new Guid("885c76df-b632-496e-a87f-98a5a362bd94"),
-                            PeriodTime = "Todo santo dia xD4",
-                            PlayerId = new Guid("c8413c17-63e7-491a-9eae-0489737e19ff"),
-                            Role = "DPS"
-                        },
-                        new
-                        {
                             Id = new Guid("488d7a32-cd07-4963-8846-61a1ff12deee"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 331, DateTimeKind.Unspecified).AddTicks(7401), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 763, DateTimeKind.Unspecified).AddTicks(9965), new TimeSpan(0, -3, 0, 0, 0)),
                             Description = "Jogo pra zuar",
                             GameId = new Guid("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"),
                             PeriodTime = "Todo santo dia xD",
                             PlayerId = new Guid("e19e6927-a444-489c-885c-45735f88e6ee"),
                             Role = "MID"
-                        },
-                        new
-                        {
-                            Id = new Guid("23098ff0-1267-460f-a3f0-fbea676a4279"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 331, DateTimeKind.Unspecified).AddTicks(7411), new TimeSpan(0, -3, 0, 0, 0)),
-                            Description = "Jogo pra zuar2",
-                            GameId = new Guid("8e4275ae-b5ed-4a16-a8c7-32d4c5cbd4f4"),
-                            PeriodTime = "Todo santo dia xD2",
-                            PlayerId = new Guid("b0707b09-f1bd-44e9-928b-9277e1bf8d46"),
-                            Role = "ADC"
-                        },
-                        new
-                        {
-                            Id = new Guid("2adcaf82-a6a7-46d2-b126-0d342cd51130"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 331, DateTimeKind.Unspecified).AddTicks(7433), new TimeSpan(0, -3, 0, 0, 0)),
-                            Description = "Jogo pra zuar2",
-                            GameId = new Guid("885c76df-b632-496e-a87f-98a5a362bd94"),
-                            PeriodTime = "Todo santo dia xD3",
-                            PlayerId = new Guid("b0707b09-f1bd-44e9-928b-9277e1bf8d46"),
-                            Role = "Healer"
                         });
                 });
 
@@ -250,7 +208,7 @@ namespace Ginder.Infra.Migrations
                         new
                         {
                             Id = new Guid("c6699c75-5f44-4029-a404-84ce8a3951c8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 42, 9, 332, DateTimeKind.Unspecified).AddTicks(3131), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2020, 7, 6, 22, 33, 23, 764, DateTimeKind.Unspecified).AddTicks(5451), new TimeSpan(0, -3, 0, 0, 0)),
                             Login = "admin",
                             Password = "123",
                             PlayerId = new Guid("c8413c17-63e7-491a-9eae-0489737e19ff")

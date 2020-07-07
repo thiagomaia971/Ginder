@@ -3,7 +3,7 @@ package br.unifor.dispositivos.ginder.data
 import java.net.URLEncoder
 
 public abstract class Repository {
-    val baseUrl: String = "http://13e171d2ad25.ngrok.io";
+    val baseUrl: String = "http://3ed398cad9ee.ngrok.io";
     abstract val actionUrl: String;
 
     protected fun Encode(value: String): String {
